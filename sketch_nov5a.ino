@@ -10,7 +10,7 @@ void setup() {
   } 
   
   void loop() {
-  Hello_World()
+  Hello_World();
    } 
 
    void Wifi_connecting() { 
