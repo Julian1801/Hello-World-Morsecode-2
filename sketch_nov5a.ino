@@ -1,126 +1,143 @@
-int LED = 2;
+#include <ESP8266WiFi.h> 
+#include <ESP8266WebServer.h> 
+int LED = 2; 
+ESP8266WebServer server(80); 
+void setup() { 
+  Serial.begin(115200); 
+  Serial.println("ESP Getestet"); 
+  pinMode(LED, OUTPUT); // Port aus Ausgang schalten 
+  Wifi_connecting(); 
+  } 
+  
+  void loop() {
+  Hello_World()
+   } 
 
-void setup() {
- pinMode(LED, OUTPUT); // Port aus Ausgang schalten
- }
-
-void loop() {
-   digitalWrite(LED,LOW); //aus
-   delay(10000); 
-   letter_h();
-   delay(3000);
-   letter_e();
-   delay(3000);
-   letter_l();
-   delay(3000);
-   letter_l();
-   delay(3000);
-   letter_o();
-   delay(7000);
-   letter_w();
-   delay(3000);
-   letter_o();
-   delay(3000);
-   letter_r();
-   delay(3000);
-   letter_l();
-   delay(3000);
-   letter_d();
-   delay(20000);
- }
+   void Wifi_connecting() { 
+    WiFi.begin("Voucher", "");
+     Serial.print("Verbindung wird hergestellt...");
+      while(WiFi.status() != WL_CONNECTED) 
+      { delay(500); 
+        Serial.print("."); 
+      } 
+      if (WiFi.status() == WL_CONNECTED) {
+         Serial.println();
+          Serial.print("Verbunden! IP-Adresse: ");
+           Serial.println(WiFi.localIP()); 
+           server.begin(); }
+            }
+            
+void Hello_World() {
+  digitalWrite(LED, LOW);
+  delay(10000); 
+  letter_h();
+  delay(3000);
+  letter_e();
+  delay(3000);
+  letter_l();
+  delay(3000);
+  letter_l();
+  delay(3000);
+  letter_o();
+  delay(7000);
+  letter_w();
+  delay(3000);
+  letter_o();
+  delay(3000);
+  letter_r();
+  delay(3000);
+  letter_l();
+  delay(3000);
+  letter_d();
+  delay(20000);
+}
 
 void letter_h() {
-  digitalWrite(LED, HIGH); //Led einschlaten
+  digitalWrite(LED, HIGH);
   delay(1000);
-  digitalWrite(LED,LOW); //aus
+  digitalWrite(LED, LOW);
   delay(1000); 
-  digitalWrite(LED, HIGH); //an
+  digitalWrite(LED, HIGH);
   delay(1000);
-  digitalWrite(LED,LOW); //aus
+  digitalWrite(LED, LOW);
   delay(1000); 
-  digitalWrite(LED, HIGH); //an
+  digitalWrite(LED, HIGH);
   delay(1000);
-  digitalWrite(LED,LOW); //aus
+  digitalWrite(LED, LOW);
   delay(1000); 
-  digitalWrite(LED, HIGH); //an
+  digitalWrite(LED, HIGH);
   delay(1000);
-  digitalWrite(LED,LOW); //aus
+  digitalWrite(LED, LOW);
   delay(1000); 
-  digitalWrite(LED, HIGH); //an
-  delay(1000);
-  digitalWrite(LED,LOW);
+  digitalWrite(LED, HIGH);
 }
+
 void letter_e() {
   digitalWrite(LED, HIGH);
   delay(1000);
-   digitalWrite(LED,LOW); //Led einschlaten
+  digitalWrite(LED, LOW);
 }
+
 void letter_l() {
-  digitalWrite(LED, HIGH); //Led einschlaten
+  digitalWrite(LED, HIGH);
   delay(1000);
-  digitalWrite(LED,LOW); //aus
+  digitalWrite(LED, LOW);
   delay(1000); 
-  digitalWrite(LED, HIGH); //an
+  digitalWrite(LED, HIGH);
   delay(3000);
-  digitalWrite(LED,LOW); //aus
-  delay(1000);
-  digitalWrite(LED, HIGH); //Led einschlaten
-  delay(1000);
-  digitalWrite(LED,LOW); //aus
+  digitalWrite(LED, LOW);
   delay(1000); 
   digitalWrite(LED, HIGH);
   delay(1000);
-   digitalWrite(LED,LOW); //Led einschlaten
+  digitalWrite(LED, LOW);
+  delay(1000);
+  digitalWrite(LED, HIGH);
 }
+
 void letter_o() {
-  digitalWrite(LED, HIGH); //Led einschlaten
-  delay(3000);
-  digitalWrite(LED,LOW); //aus
-  delay(1000); 
-  digitalWrite(LED, HIGH); //an
-  delay(3000);
-  digitalWrite(LED,LOW); //aus
-  delay(1000);
   digitalWrite(LED, HIGH);
   delay(3000);
-   digitalWrite(LED, LOW);
+  digitalWrite(LED, LOW);
+  delay(1000); 
+  digitalWrite(LED, HIGH);
+  delay(3000);
+  digitalWrite(LED, LOW);
+  delay(1000);
+  digitalWrite(LED, HIGH);
 }
+
 void letter_w() {
   digitalWrite(LED, HIGH);
   delay(3000);
   digitalWrite(LED, LOW);
   delay(1000);
-  digitalWrite(LED, HIGH); //Led einschlaten
-  delay(1000);
-  digitalWrite(LED,LOW); //aus
-  delay(1000); 
   digitalWrite(LED, HIGH);
+  delay(1000); 
+  digitalWrite(LED, LOW);
   delay(1000);
-   digitalWrite(LED, LOW);
+  digitalWrite(LED, HIGH);
 }
+
 void letter_r() {
   digitalWrite(LED, HIGH);
   delay(3000);
   digitalWrite(LED, LOW);
   delay(1000);
-  digitalWrite(LED, HIGH); //Led einschlaten
+  digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
   delay(1000);
   digitalWrite(LED, HIGH);
-  delay(3000);
-   digitalWrite(LED, LOW);
 }
+
 void letter_d() {
   digitalWrite(LED, HIGH);
   delay(3000);
   digitalWrite(LED, LOW);
   delay(1000);
-  digitalWrite(LED, HIGH); //Led einschlaten
+  digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
   delay(1000);
   digitalWrite(LED, HIGH);
-  delay(1000);
-   digitalWrite(LED,LOW); //Led einschlaten
 }
