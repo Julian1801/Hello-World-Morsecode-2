@@ -1,20 +1,31 @@
-#include <ESP8266WiFi.h> 
-#include <ESP8266WebServer.h> 
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WiFiMulti.h> 
+#include <ESP8266mDNS.h>
+#include <ESP8266WebServer.h>
+
 int LED = 2; 
+ESP8266WiFiMulti wifiMulti;
 ESP8266WebServer server(80); 
-void setup() { 
+
+void handleRoot();              // function prototypes for HTTP handlers
+void handleNotFound();
+
+
+void setup(void) { 
   Serial.begin(115200); 
   Serial.println("ESP Getestet"); 
   pinMode(LED, OUTPUT); // Port aus Ausgang schalten 
   Wifi_connecting(); 
   } 
   
-  void loop() {
+  void loop(void) {
+  server.handleClient();
   Hello_World();
    } 
 
    void Wifi_connecting() { 
-    WiFi.begin("Voucher", "");
+    WiFi.begin("BARAMUN-4U4JT6A 1799", "/53Pu647");
      Serial.print("Verbindung wird hergestellt...");
       while(WiFi.status() != WL_CONNECTED) 
       { delay(500); 
@@ -22,11 +33,26 @@ void setup() {
       } 
       if (WiFi.status() == WL_CONNECTED) {
          Serial.println();
-          Serial.print("Verbunden! IP-Adresse: ");
-           Serial.println(WiFi.localIP()); 
-           server.begin(); }
+         Serial.print("Verbunden! IP-Adresse: ");
+         Serial.println(WiFi.localIP()); 
+         server.on("/", handleRoot);
+         server.onNotFound(handleNotFound);
+         server.begin();
+         Serial.print("Webserver gestartet");
+         String IP = WiFi.localIP().toString();
+         Serial.println();
+         Serial.print("URL: http://"+ IP +"/");
+           }
             }
             
+void handleRoot() {
+  server.send(200, "text/plain", "Hello world!");   // Send HTTP status 200 (Ok) and send some text to the browser/client
+}
+
+void handleNotFound(){
+  server.send(404, "text/plain", "404: Not found"); // Send HTTP status 404 (Not Found) when there's no handler for the URI in the request
+}
+
 void Hello_World() {
   digitalWrite(LED, LOW);
   delay(10000); 
