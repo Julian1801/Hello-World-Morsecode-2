@@ -3,6 +3,8 @@
 #include <ESP8266WiFiMulti.h> 
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
+#include <FS.h>
+
 
 int LED = 2; 
 ESP8266WiFiMulti wifiMulti;
@@ -21,7 +23,7 @@ void setup(void) {
   
   void loop(void) {
   server.handleClient();
-  Hello_World();
+ // Hello_World();
    } 
 
    void Wifi_connecting() { 
@@ -35,7 +37,10 @@ void setup(void) {
          Serial.println();
          Serial.print("Verbunden! IP-Adresse: ");
          Serial.println(WiFi.localIP()); 
+        
          server.on("/", handleRoot);
+         server.on("/Hello", Hello_World);
+         
          server.onNotFound(handleNotFound);
          server.begin();
          Serial.print("Webserver gestartet");
@@ -46,7 +51,9 @@ void setup(void) {
             }
             
 void handleRoot() {
-  server.send(200, "text/plain", "Hello world!");   // Send HTTP status 200 (Ok) and send some text to the browser/client
+  File file = SPIFFS.open("/index.html", "r");
+  server.streamFile(file, "text/html"); // Sendet Datei als HTML
+  file.close();  // Send HTTP status 200 (Ok) and send some text to the browser/client
 }
 
 void handleNotFound(){
@@ -54,7 +61,8 @@ void handleNotFound(){
 }
 
 void Hello_World() {
-  digitalWrite(LED, LOW);
+  server.send(200, "text/plain", "Hello World!!!");
+  digitalWrite(LED, HIGH);
   delay(10000); 
   letter_h();
   delay(3000);
@@ -79,91 +87,91 @@ void Hello_World() {
 }
 
 void letter_h() {
-  digitalWrite(LED, HIGH);
-  delay(1000);
   digitalWrite(LED, LOW);
-  delay(1000); 
-  digitalWrite(LED, HIGH);
   delay(1000);
-  digitalWrite(LED, LOW);
-  delay(1000); 
   digitalWrite(LED, HIGH);
+  delay(1000); 
+  digitalWrite(LED, LOW);
   delay(1000);
-  digitalWrite(LED, LOW);
-  delay(1000); 
   digitalWrite(LED, HIGH);
+  delay(1000); 
+  digitalWrite(LED, LOW);
   delay(1000);
-  digitalWrite(LED, LOW);
-  delay(1000); 
   digitalWrite(LED, HIGH);
+  delay(1000); 
+  digitalWrite(LED, LOW);
+  delay(1000);
+  digitalWrite(LED, HIGH);
+  delay(1000); 
+  digitalWrite(LED, LOW);
 }
 
 void letter_e() {
-  digitalWrite(LED, HIGH);
-  delay(1000);
   digitalWrite(LED, LOW);
+  delay(1000);
+  digitalWrite(LED, HIGH);
 }
 
 void letter_l() {
-  digitalWrite(LED, HIGH);
-  delay(1000);
   digitalWrite(LED, LOW);
-  delay(1000); 
+  delay(1000);
   digitalWrite(LED, HIGH);
+  delay(1000); 
+  digitalWrite(LED, LOW);
   delay(3000);
-  digitalWrite(LED, LOW);
+  digitalWrite(LED, HIGH);
   delay(1000); 
-  digitalWrite(LED, HIGH);
-  delay(1000);
   digitalWrite(LED, LOW);
   delay(1000);
   digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
 }
 
 void letter_o() {
-  digitalWrite(LED, HIGH);
-  delay(3000);
   digitalWrite(LED, LOW);
+  delay(3000);
+  digitalWrite(LED, HIGH);
   delay(1000); 
-  digitalWrite(LED, HIGH);
-  delay(3000);
   digitalWrite(LED, LOW);
-  delay(1000);
+  delay(3000);
   digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
 }
 
 void letter_w() {
-  digitalWrite(LED, HIGH);
+  digitalWrite(LED, LOW);
   delay(3000);
-  digitalWrite(LED, LOW);
-  delay(1000);
   digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
   delay(1000); 
-  digitalWrite(LED, LOW);
-  delay(1000);
   digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
 }
 
 void letter_r() {
-  digitalWrite(LED, HIGH);
+  digitalWrite(LED, LOW);
   delay(3000);
-  digitalWrite(LED, LOW);
-  delay(1000);
   digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
   delay(1000);
   digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
 }
 
 void letter_d() {
-  digitalWrite(LED, HIGH);
+  digitalWrite(LED, LOW);
   delay(3000);
-  digitalWrite(LED, LOW);
-  delay(1000);
   digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
   delay(1000);
   digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
 }
